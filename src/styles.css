@@ -1,3 +1,13 @@
-body {
-  color: red;
+#tasks input {
+  display: block;
+}
+
+#tasks .task {
+  border: 2px solid black; 
+  padding: 5px;
+  margin: 5px;
+}
+
+#tasks textarea {
+  resize: none;
 }
