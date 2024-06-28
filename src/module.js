@@ -3,7 +3,7 @@ function createTask() {
     "title": "Untitled",
     "description": "",
     "dueDate": getCurrentDate(),
-    "priority": "1",
+    "priority": 1,
   }
 }
 
