@@ -1,15 +1,15 @@
-function createTask() {
+function createTask(number) {
   return {
-    "title": "Untitled",
+    "title": `Untitled ${number}`,
     "description": "",
     "dueDate": getCurrentDate(),
     "priority": 1,
   }
 }
 
-function createProject() {
+function createProject(number) {
   return {
-    "title": "Untitled",
+    "title": `Untitled ${number}`,
     "tasks": [],
   }
 }
