@@ -27,7 +27,68 @@ function getCurrentDate() {
   return `${year}-${month}-${day}`;
 }
 
-module.exports = {
-  createTask,
-  createProject,
+let projects = [];
+let selectedProject = 0;
+
+projects.push(createProject(projects.length));
+
+function getId(e) { 
+  return parseInt(e.target.classList[0]);
 }
+
+function deleteTask(taskNumber) {
+  projects[selectedProject].tasks.splice(taskNumber, 1);
+}
+
+function changeProject(newSelectedProject) {
+  selectedProject = newSelectedProject;
+}
+
+function newTask() {
+  projects[selectedProject].tasks.push(createTask(projects[selectedProject].tasks.length));
+}
+
+function newProject() {
+  projects.push(createProject(projects.length));
+  selectedProject = projects.length - 1;
+}
+
+function deleteProject() {
+  projects.splice(selectedProject, 1);
+  selectedProject--;
+}
+
+function getTasks() {
+  return projects[selectedProject].tasks;
+}
+
+function getProjectTitle() {
+  return projects[selectedProject].title;
+}
+
+function getProjects() {
+  return projects;
+}
+
+function updateTask(task, id) {
+  projects[selectedProject].task[id] = task;
+}
+
+function updateProjectTitle(title) {
+  projects[selectedProject].title = title;
+}
+
+module.exports = {
+  getId,
+  deleteTask,
+  changeProject,
+  newTask,
+  newProject,
+  deleteProject,
+  getTasks,
+  getProjectTitle,
+  updateTask,
+  updateProjectTitle,
+  getProjects,
+}
+

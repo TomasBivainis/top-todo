@@ -1,31 +1,18 @@
 import './styles.css';
-import { createTask, createProject } from "./module";
+import { getId, deleteTask, changeProject, newTask, newProject, deleteProject, getProjectTitle, getTasks, updateTask, updateProjectTitle, getProjects } from './module.js';
+
 const divTasks = document.querySelector("#tasks");
 const inputProjectTitle = document.querySelector('#project_name');
 const buttonNewTask = document.querySelector('#new_task');
 const divProjects = document.querySelector("#projects");
 const btnNewProject = document.querySelector('#new_project');
 
-let projects = [];
-
-projects.push(createProject(projects.length));
-
-let selectedProject = 0;
-
-function getId(e) { 
-  return parseInt(e.target.classList[0]);
-}
-
 function displayTasks() {
   divTasks.innerHTML = "";
+  let tasks = getTasks();
 
-  function deleteTask(taskNumber) {
-    projects[selectedProject].tasks.splice(taskNumber, 1);
-    displayTasks();
-  }
-
-  for(let i = 0; i < projects[selectedProject].tasks.length; i++) {
-    let task = projects[selectedProject].tasks[i];
+  for(let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
 
     const divNewTask = document.createElement('div');
     divNewTask.classList.add(`${i}`);
@@ -38,10 +25,11 @@ function displayTasks() {
     inputTitle.classList.add(`${i}`);
     inputTitle.classList.add('title');
     
-
     inputTitle.addEventListener('input', e => {
       let id = getId(e);
-      projects[selectedProject].tasks[id].title = e.target.value;
+      let tasks = getTasks();
+      tasks[id].title = e.target.value;
+      updateTask(task, id);
     })
 
     const textareaDescription = document.createElement('textarea');
@@ -50,7 +38,9 @@ function displayTasks() {
 
     textareaDescription.addEventListener('input', e => {
       let id = getId(e);
-      projects[selectedProject].tasks[id].description = e.target.value;
+      let tasks = getTasks();
+      tasks[id].description = e.target.value;
+      updateTask(task, id);
     })
 
     const inputDueDate = document.createElement('input');
@@ -60,7 +50,9 @@ function displayTasks() {
 
     inputDueDate.addEventListener('input', e => {
       let id = getId(e);
-      projects[selectedProject].tasks[id].dueDate = e.target.value;
+      let tasks = getTasks();
+      tasks[id].dueDate = e.target.value;
+      updateTask(task, id);
     })
 
     const inputPriority = document.createElement('input');
@@ -71,7 +63,9 @@ function displayTasks() {
 
     inputPriority.addEventListener('input', e => {
       let id = getId(e);
-      projects[selectedProject].tasks[id].priority = parseInt(e.target.value);
+      let tasks = getTasks();
+      tasks[id].dueDate = e.target.value;
+      updateTask(task, id);
     })
 
     const btnDelete = document.createElement('button');
@@ -82,6 +76,7 @@ function displayTasks() {
     btnDelete.addEventListener('click', e => {
       let id = getId(e);
       deleteTask(id);
+      updateDisplay();
     });
 
     divNewTask.appendChild(inputTitle);
@@ -94,14 +89,9 @@ function displayTasks() {
   }
 }
 
-function displayProject() {
-  inputProjectTitle.value = projects[selectedProject].title;
-  displayTasks();
-  displayProjects();
-}
-
 function displayProjects() {
   divProjects.innerHTML = "";
+  let projects = getProjects();
 
   for(let i = 0; i < projects.length; i++) {
     let btnNewProject = document.createElement('button');
@@ -110,42 +100,37 @@ function displayProjects() {
 
     btnNewProject.addEventListener('click', e => {
       changeProject(getId(e));
+      updateDisplay();
     })
 
     divProjects.appendChild(btnNewProject);
   }
 }
- 
-function changeProject(newSelectedProject) {
-  selectedProject = newSelectedProject;
-  displayProject();
-}
 
-function changeProjectTitle() {
-  projects[selectedProject].title = inputProjectTitle.value;
-  divProjects.childNodes[selectedProject].innerHTML = inputProjectTitle.value;
-}
-
-function newTask() {
-  projects[selectedProject].tasks.push(createTask(projects[selectedProject].tasks.length));
+function updateDisplay() {
+  inputProjectTitle.value = getProjectTitle();
   displayTasks();
-}
-
-function newProject() {
-  projects.push(createProject(projects.length));
-  selectedProject = projects.length - 1;
   displayProjects();
-  displayProject();
+}
+ 
+function changeProjectTitle() {
+  updateProjectTitle(inputProjectTitle.value);
+  updateDisplay();
 }
 
-function deleteProject() {
-  projects.splice(selectedProject, 1);
-  selectedProject--;
-}
+btnNewProject.addEventListener('click', () => {
+  newProject();
+  updateDisplay();
+});
 
-btnNewProject.addEventListener('click', newProject);
-inputProjectTitle.addEventListener('input', changeProjectTitle);
-buttonNewTask.addEventListener('click', newTask);
+inputProjectTitle.addEventListener('input', () => {
+  changeProjectTitle();
+  updateDisplay();
+});
 
-displayProject();
+buttonNewTask.addEventListener('click', () => {
+  newTask();
+  updateDisplay();
+});
 
+updateDisplay();
