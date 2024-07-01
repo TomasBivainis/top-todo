@@ -36,8 +36,7 @@ html, body {
   overflow: scroll;
 }
 
-#new_task {
-  justify-self: flex-end;
+.primary_button {
   background-color: #E47B31;
   border: none;
   font-size: 15px;
@@ -46,8 +45,12 @@ html, body {
   border-radius: 5px;
 }
 
-#new_task:hover {
+.primary_button:hover {
   background-color: #cf702c;
+}
+
+.primary_button:active {
+  background-color: #be6627;
 }
 
 .task {
@@ -84,11 +87,15 @@ html, body {
   margin: 0;
   border: none;
   border-radius: 100%;
-  background-color: #E47B31;
+  background-color: transparent;
 }
 
 .task .delete:hover {
-  background-color: #cf702c;
+  background-color: rgba(0, 0, 0, 10%);
+}
+
+.task .delete:active {
+  background-color: rgba(0, 0, 0, 15%);
 }
 
 #task_window {
@@ -98,8 +105,32 @@ html, body {
 #project_window {
   grid-column: 2;
   background-color: #7EEE7C;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-#projects button{
-  display: block;
+#projects {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  overflow: scroll;
+}
+
+.project {
+  margin: 10px;
+  margin-bottom: 0;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 10%);
+  border: none;
+  font-size: 15px;
+  text-align: start;
+}
+
+.project:hover {
+  background-color: rgba(0, 0, 0, 15%);
+}
+
+.project:active {
+  background-color: rgba(0, 0, 0, 20%);
 }

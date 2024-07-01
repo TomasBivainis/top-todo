@@ -102,6 +102,7 @@ function displayProjects() {
     let btnNewProject = document.createElement('button');
     btnNewProject.innerHTML = projects[i].title;
     btnNewProject.classList.add(`${i}`);
+    btnNewProject.classList.add('project');
 
     btnNewProject.addEventListener('click', e => {
       changeProject(getId(e));
