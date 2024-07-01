@@ -55,7 +55,7 @@ function newProject() {
 
 function deleteProject() {
   projects.splice(selectedProject, 1);
-  selectedProject--;
+  selectedProject = Math.max(0, selectedProject - 1);
 }
 
 function getTasks() {

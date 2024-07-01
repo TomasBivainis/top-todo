@@ -6,6 +6,7 @@ const inputProjectTitle = document.querySelector('#project_name');
 const buttonNewTask = document.querySelector('#new_task');
 const divProjects = document.querySelector("#projects");
 const btnNewProject = document.querySelector('#new_project');
+const btnDeleteProject = document.querySelector('#delete_project');
 
 function displayTasks() {
   divTasks.innerHTML = "";
@@ -111,6 +112,13 @@ function displayProjects() {
 
     divProjects.appendChild(btnNewProject);
   }
+
+  if(getProjects().length === 1) {
+    btnDeleteProject.hidden = true;
+  }
+  else {
+    btnDeleteProject.hidden = false;
+  }
 }
 
 function updateDisplay() {
@@ -138,5 +146,10 @@ buttonNewTask.addEventListener('click', () => {
   newTask();
   updateDisplay();
 });
+
+btnDeleteProject.addEventListener('click', () => {
+  deleteProject();
+  updateDisplay();
+})
 
 updateDisplay();
