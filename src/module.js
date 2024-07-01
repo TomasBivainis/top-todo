@@ -114,7 +114,7 @@ function updateProjectTitle(title) {
   save();
 }
 
-module.exports = {
+export default {
   getId,
   deleteTask,
   changeProject,
