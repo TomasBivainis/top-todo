@@ -1,3 +1,22 @@
+function storageAvailable(type) {
+  let storage;
+  try {
+    storage = window[type];
+    const x = "__storage_test__";
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  } catch (e) {
+    return (
+      e instanceof DOMException &&
+      e.name === "QuotaExceededError" &&
+      // acknowledge QuotaExceededError only if there's something already stored
+      storage &&
+      storage.length !== 0
+    );
+  }
+}
+
 function createTask() {
   return {
     "title": '',
@@ -30,7 +49,18 @@ function getCurrentDate() {
 let projects = [];
 let selectedProject = 0;
 
-projects.push(createProject(projects.length));
+if(storageAvailable("localStorage") && localStorage.saved !== undefined) {
+  projects = JSON.parse(localStorage.saved);
+}
+else {
+  projects.push(createProject(projects.length));
+}
+
+function save() {
+  if(storageAvailable("localStorage")) {
+    localStorage.saved = JSON.stringify(projects);
+  }
+}
 
 function getId(e) { 
   return parseInt(e.target.classList[0]);
@@ -38,6 +68,7 @@ function getId(e) {
 
 function deleteTask(taskNumber) {
   projects[selectedProject].tasks.splice(taskNumber, 1);
+  save();
 }
 
 function changeProject(newSelectedProject) {
@@ -46,16 +77,19 @@ function changeProject(newSelectedProject) {
 
 function newTask() {
   projects[selectedProject].tasks.push(createTask());
+  save();
 }
 
 function newProject() {
   projects.push(createProject(projects.length));
   selectedProject = projects.length - 1;
+  save();
 }
 
 function deleteProject() {
   projects.splice(selectedProject, 1);
   selectedProject = Math.max(0, selectedProject - 1);
+  save();
 }
 
 function getTasks() {
@@ -72,10 +106,12 @@ function getProjects() {
 
 function updateTask(task, id) {
   projects[selectedProject].task[id] = task;
+  save();
 }
 
 function updateProjectTitle(title) {
   projects[selectedProject].title = title;
+  save();
 }
 
 module.exports = {
