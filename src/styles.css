@@ -1,7 +1,9 @@
 html, body {
-  box-sizing: content-box;
+  /*box-sizing: content-box;*/
   margin: 0;
   height: 100%;
+  background-color: #FEF9F5;
+  color: #1A0E03;
 }
 
 #container {
@@ -12,28 +14,90 @@ html, body {
   margin: 0;
 }
 
-#tasks input {
-  display: block;
+#task_window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-#tasks .task {
-  border: 2px solid black; 
+#project_name {
+  margin: 10px;
+  justify-self: flex-start;
+  background-color: rgba(0, 0, 0, 10%);
+  border: none;
   padding: 5px;
-  margin: 5px;
+  border-radius: 5px;
 }
 
-#tasks textarea {
+#tasks { 
+  width: 100%;
+  height: 85vh;
+  overflow: scroll;
+}
+
+#new_task {
+  justify-self: flex-end;
+  background-color: #E47B31;
+  border: none;
+  font-size: 15px;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+#new_task:hover {
+  background-color: #cf702c;
+}
+
+.task {
+  border-radius: 5px;
+  padding: 5px;
+  margin: 8px;
+  background-color: #56E9A3;
+  display: flex;
+  justify-content: space-between;
+}
+
+.task input {
+  display: block;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 10%);
+  margin: 5px;
+  padding: 5px;
+}
+
+.task textarea {
   resize: none;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 10%);
+  margin: 5px;
+  padding: 5px;
+}
+
+.task .delete {
+  height: 20px;
+  width: 20px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 100%;
+  background-color: #E47B31;
+}
+
+.task .delete:hover {
+  background-color: #cf702c;
 }
 
 #task_window {
   grid-column: 1;
-  background-color: blue;
 }
 
 #project_window {
   grid-column: 2;
-  background-color: red;
+  background-color: #7EEE7C;
 }
 
 #projects button{

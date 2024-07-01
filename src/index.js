@@ -17,13 +17,16 @@ function displayTasks() {
     const divNewTask = document.createElement('div');
     divNewTask.classList.add(`${i}`);
     divNewTask.classList.add('task');
-    
 
+    const divInputs = document.createElement('div');
+    divInputs.classList.add('inputs');
+    
     const inputTitle = document.createElement('input');
     inputTitle.value = task.title;
     inputTitle.type = 'text';
     inputTitle.classList.add(`${i}`);
     inputTitle.classList.add('title');
+    inputTitle.placeholder = 'Title';
     
     inputTitle.addEventListener('input', e => {
       let id = getId(e);
@@ -35,6 +38,7 @@ function displayTasks() {
     const textareaDescription = document.createElement('textarea');
     textareaDescription.value = task.description;
     textareaDescription.classList.add(`${i}`);
+    textareaDescription.placeholder = 'description';
 
     textareaDescription.addEventListener('input', e => {
       let id = getId(e);
@@ -59,7 +63,7 @@ function displayTasks() {
     inputPriority.value = task.priority;
     inputPriority.classList.add(`${i}`);
     inputPriority.type = 'number';
-    
+    inputPriority.placeholder = 'Priority';
 
     inputPriority.addEventListener('input', e => {
       let id = getId(e);
@@ -69,7 +73,7 @@ function displayTasks() {
     })
 
     const btnDelete = document.createElement('button');
-    btnDelete.innerHTML = "Delete";
+    btnDelete.innerHTML = "X";
     btnDelete.classList.add(`${i}`);
     btnDelete.classList.add('delete');
 
@@ -79,10 +83,11 @@ function displayTasks() {
       updateDisplay();
     });
 
-    divNewTask.appendChild(inputTitle);
-    divNewTask.appendChild(inputDueDate);
-    divNewTask.appendChild(inputPriority);
-    divNewTask.appendChild(textareaDescription);
+    divInputs.appendChild(inputTitle);
+    divInputs.appendChild(inputDueDate);
+    divInputs.appendChild(inputPriority);
+    divInputs.appendChild(textareaDescription);
+    divNewTask.appendChild(divInputs);
     divNewTask.appendChild(btnDelete);
 
     divTasks.appendChild(divNewTask);

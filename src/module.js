@@ -1,6 +1,6 @@
-function createTask(number) {
+function createTask() {
   return {
-    "title": `Untitled ${number}`,
+    "title": '',
     "description": "",
     "dueDate": getCurrentDate(),
     "priority": 1,
@@ -45,7 +45,7 @@ function changeProject(newSelectedProject) {
 }
 
 function newTask() {
-  projects[selectedProject].tasks.push(createTask(projects[selectedProject].tasks.length));
+  projects[selectedProject].tasks.push(createTask());
 }
 
 function newProject() {
